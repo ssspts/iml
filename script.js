@@ -1,14 +1,44 @@
-const API_URL = "https://www.omdbapi.com/?apikey=thewdb&s="
+const API_KEY = "708b6616d4f93c71106cbd36cd888bb0"
+
+const SEARCH_URL =
+`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}`
+
+const DISCOVER_URL =
+`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_original_language=hi`
 
 const container = document.getElementById("movieList")
 
-async function fetchMovies(query){
+let currentPage = 1
+let currentQuery = ""
+let currentYear = ""
 
-const res = await fetch(API_URL + query)
+async function fetchMovies(){
+
+let url
+
+if(currentQuery){
+
+url = `${SEARCH_URL}&query=${currentQuery}&page=${currentPage}`
+
+}else{
+
+url = `${DISCOVER_URL}&page=${currentPage}`
+
+}
+
+if(currentYear){
+
+url += `&primary_release_year=${currentYear}`
+
+}
+
+const res = await fetch(url)
 
 const data = await res.json()
 
-render(data.Search || [])
+render(data.results)
+
+document.getElementById("pageNumber").innerText = currentPage
 
 }
 
@@ -22,13 +52,15 @@ container.innerHTML+=`
 
 <div class="movie">
 
-<img src="${movie.Poster !== 'N/A' ? movie.Poster : ''}">
+<img src="https://image.tmdb.org/t/p/w500${movie.poster_path}">
 
 <div class="movie-info">
 
-<div class="title">${movie.Title}</div>
+<div class="title">${movie.title}</div>
 
-<div class="year">📅 ${movie.Year}</div>
+<div>📅 ${movie.release_date}</div>
+
+<div>⭐ ${movie.vote_average}</div>
 
 </div>
 
@@ -40,16 +72,34 @@ container.innerHTML+=`
 
 }
 
-document.getElementById("search").addEventListener("input",(e)=>{
+function searchMovies(){
 
-const query = e.target.value
+currentQuery = document.getElementById("search").value.trim()
+currentYear = document.getElementById("yearSearch").value.trim()
 
-if(query.length > 2){
+currentPage = 1
 
-fetchMovies(query)
+fetchMovies()
 
+}
+
+document.getElementById("search").addEventListener("input",searchMovies)
+document.getElementById("yearSearch").addEventListener("input",searchMovies)
+
+document.getElementById("next").addEventListener("click",()=>{
+
+currentPage++
+fetchMovies()
+
+})
+
+document.getElementById("prev").addEventListener("click",()=>{
+
+if(currentPage>1){
+currentPage--
+fetchMovies()
 }
 
 })
 
-fetchMovies("thriller")
+fetchMovies()
