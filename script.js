@@ -8,7 +8,8 @@ let actorQuery=""
 let yearQuery=""
 let countryQuery=""
 let genreQuery=""
-
+let languageQuery=""
+let ottQuery = ""
 const container = document.getElementById("movies")
 
 async function fetchMovies(){
@@ -57,6 +58,14 @@ url += `&with_origin_country=${countryQuery}`
 if(genreQuery){
 url += `&with_genres=${genreQuery}`
 }
+
+if(languageQuery){
+url += `&with_original_language=${languageQuery}`
+}
+
+    if(ottQuery){
+        url += `&with_watch_providers=${ottQuery}&watch_region=${countryQuery || 'US'}`
+    }
 
 const res = await fetch(url)
 const data = await res.json()
@@ -108,29 +117,54 @@ container.innerHTML += `
 
 async function showMovieDetails(movieId){
 
-const res = await fetch(
-`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`
-)
+    // Fetch movie details
+    const movieRes = await fetch(
+        `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`
+    )
+    const movie = await movieRes.json()
 
-const movie = await res.json()
+    // Fetch OTT providers
+    const providerRes = await fetch(
+        `https://api.themoviedb.org/3/movie/${movieId}/watch/providers?api_key=${API_KEY}`
+    )
+    const providerData = await providerRes.json()
 
-const modalBody = document.getElementById("modalBody")
+    let providers = []
 
-modalBody.innerHTML = `
+    const region = countryQuery || "US" // default region
 
-<img src="https://image.tmdb.org/t/p/w500${movie.poster_path}">
+    if(providerData.results && providerData.results[region] && providerData.results[region].flatrate){
+        providers = providerData.results[region].flatrate
+    }
 
-<h2>${movie.title}</h2>
+    const modalBody = document.getElementById("modalBody")
 
-<p><b>Release:</b> ${movie.release_date}</p>
+    // Construct provider logos HTML inside a flex container
+    let providersHTML = "Not available"
+    if(providers.length>0){
+        providersHTML = `<div class="ott-logos">` +
+            providers.map(p =>
+                `<img src="https://image.tmdb.org/t/p/original${p.logo_path}" alt="${p.provider_name}" title="${p.provider_name}">`
+            ).join("") +
+            `</div>`
+    }
 
-<p><b>Rating:</b> ⭐ ${movie.vote_average}</p>
+    modalBody.innerHTML = `
 
-<p>${movie.overview}</p>
+    <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" style="float:left; margin-right:20px; max-width:150px; border-radius:8px;">
 
-`
+    <h2>${movie.title}</h2>
 
-document.getElementById("movieModal").style.display="flex"
+    <p><b>Release:</b> ${movie.release_date}</p>
+
+    <p><b>Rating:</b> ⭐ ${movie.vote_average}</p>
+
+    <p><b>OTT:</b> ${providersHTML}</p>
+
+    <p>${movie.overview}</p>
+  `
+
+    document.getElementById("movieModal").style.display="flex"
 
 }
 
@@ -161,6 +195,20 @@ document.getElementById("search").addEventListener("input",(e)=>{
 movieQuery = e.target.value
 actorQuery=""
 currentPage=1
+fetchMovies()
+
+})
+
+document.getElementById("ottFilter").addEventListener("change", (e) => {
+    ottQuery = e.target.value
+    currentPage = 1
+    fetchMovies()
+})
+
+document.getElementById("languageFilter").addEventListener("change",(e)=>{
+
+languageQuery = e.target.value
+currentPage = 1
 fetchMovies()
 
 })

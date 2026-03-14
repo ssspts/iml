@@ -280,3 +280,17 @@ gap:10px;
 }
 
 }
+.ott-logos{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:4px;
+    align-items:center;
+}
+
+.ott-logos img{
+    height:32px;       /* uniform height */
+    width:auto;         /* maintain aspect ratio */
+    object-fit:contain; /* avoid stretching */
+    vertical-align:middle;
+}
