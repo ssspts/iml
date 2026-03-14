@@ -287,4 +287,32 @@ document.getElementById("pageInput").value=currentPage
 
 })
 
+// Reset Search (movie + actor + year search input)
+document.getElementById("resetSearch").addEventListener("click", () => {
+    movieQuery = ""
+    actorQuery = ""
+    yearQuery = ""
+    document.getElementById("search").value = ""
+    document.getElementById("actorSearch").value = ""
+    document.getElementById("yearSearch").value = ""
+    currentPage = 1
+    fetchMovies()
+})
+
+// Reset Filters (country, genre, language, OTT)
+document.getElementById("resetFilters").addEventListener("click", () => {
+    countryQuery = ""
+    genreQuery = ""
+    languageQuery = ""
+    ottQuery = ""
+
+    document.getElementById("countryFilter").value = ""
+    document.getElementById("genreFilter").value = ""
+    document.getElementById("languageFilter").value = ""
+    document.getElementById("ottFilter").value = ""
+
+    currentPage = 1
+    fetchMovies()
+})
+
 fetchMovies()
