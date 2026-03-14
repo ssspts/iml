@@ -24,7 +24,11 @@
 <input id="actorSearch" placeholder="👤 Actor name">
 
 <input id="yearSearch" placeholder="📅 Year">
-
+    <div class="year-range-filter" style="margin-top:10px;">
+        <input type="number" id="yearFrom" placeholder="From Year (e.g., 2010)" min="1900" max="2100">
+        <input type="number" id="yearTo" placeholder="To Year (e.g., 2020)" min="1900" max="2100">
+        <div id="yearRangeError" style="color:red; font-size:14px; margin-top:4px;"></div>
+    </div>
 <select id="countryFilter">
 <option value="">🌍 Country</option>
 <option value="IN">India</option>

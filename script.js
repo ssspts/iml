@@ -10,6 +10,8 @@ let countryQuery=""
 let genreQuery=""
 let languageQuery=""
 let ottQuery = ""
+let yearFromQuery = ""
+let yearToQuery = ""
 const container = document.getElementById("movies")
 
 async function fetchMovies(){
@@ -50,6 +52,13 @@ url=`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=${curre
 if(yearQuery){
 url += `&primary_release_year=${yearQuery}`
 }
+
+    if(yearFromQuery){
+        url += `&primary_release_date.gte=${yearFromQuery}-01-01`
+    }
+    if(yearToQuery){
+        url += `&primary_release_date.lte=${yearToQuery}-12-31`
+    }
 
 if(countryQuery){
 url += `&with_origin_country=${countryQuery}`
@@ -305,14 +314,61 @@ document.getElementById("resetFilters").addEventListener("click", () => {
     genreQuery = ""
     languageQuery = ""
     ottQuery = ""
+    yearFromQuery = ""
+    yearToQuery = ""
 
     document.getElementById("countryFilter").value = ""
     document.getElementById("genreFilter").value = ""
     document.getElementById("languageFilter").value = ""
     document.getElementById("ottFilter").value = ""
 
+    document.getElementById("yearFrom").value = ""
+    document.getElementById("yearTo").value = ""
     currentPage = 1
     fetchMovies()
 })
 
+// Elements
+const yearFromInput = document.getElementById("yearFrom")
+const yearToInput = document.getElementById("yearTo")
+const yearRangeError = document.getElementById("yearRangeError")
+
+
+
+// Helper to validate year range
+function validateAndFetchYearRange(){
+    const fromVal = yearFromInput.value.trim()
+    const toVal = yearToInput.value.trim()
+
+    yearRangeError.innerText = "" // reset error
+
+    if(fromVal && isNaN(fromVal)){
+        yearRangeError.innerText = "Enter a valid number for From Year"
+        return false
+    }
+    if(toVal && isNaN(toVal)){
+        yearRangeError.innerText = "Enter a valid number for To Year"
+        return false
+    }
+
+    if(fromVal && toVal && parseInt(fromVal) > parseInt(toVal)){
+        yearRangeError.innerText = "'From Year' cannot be greater than 'To Year'"
+        return false
+    }
+
+    // Valid input, update queries
+    yearFromQuery = fromVal
+    yearToQuery = toVal
+    currentPage = 1
+    fetchMovies() // your existing function
+    return true
+}
+
+// Trigger on blur
+yearFromInput.addEventListener("blur", validateAndFetchYearRange)
+yearToInput.addEventListener("blur", validateAndFetchYearRange)
+
+// Trigger on Enter
+yearFromInput.addEventListener("keypress", (e) => { if(e.key==="Enter"){ e.preventDefault(); validateAndFetchYearRange() }})
+yearToInput.addEventListener("keypress", (e) => { if(e.key==="Enter"){ e.preventDefault(); validateAndFetchYearRange() }})
 fetchMovies()
