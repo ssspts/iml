@@ -96,9 +96,23 @@ function renderMovies(movies){
 
 container.innerHTML=""
 
-movies.forEach(movie=>{
+movies.forEach((movie,index)=>{
 
-container.innerHTML += `
+     if((index + 1) % 5 === 0){
+        const adDiv = document.createElement("div")
+        adDiv.className = "movie ad-cell"
+        adDiv.innerHTML = `
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-XXXXXXXXXXXXXXX"
+                data-ad-slot="1234567890"
+                data-ad-format="auto"
+                data-full-width-responsive="true">Place your ads here</ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        `
+        container.appendChild(adDiv)
+    }
+        container.innerHTML += `
 
 <div class="movie" onclick="showMovieDetails(${movie.id})">
 
