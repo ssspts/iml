@@ -107,7 +107,7 @@ movies.forEach((movie,index)=>{
                 data-ad-client="ca-pub-XXXXXXXXXXXXXXX"
                 data-ad-slot="1234567890"
                 data-ad-format="auto"
-                data-full-width-responsive="true">Place your ads here</ins>
+                data-full-width-responsive="true">{Ads}</ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         `
         container.appendChild(adDiv)
@@ -308,6 +308,18 @@ document.getElementById("pageInput").value=currentPage
 
 }
 
+})
+
+const donateBtn = document.getElementById("donateBtn")
+const qrModal = document.getElementById("qrModal")
+const closeQrBtn = document.getElementById("closeQrBtn")
+
+donateBtn.addEventListener("click", () => {
+    qrModal.style.display = "flex"  // show modal
+})
+
+closeQrBtn.addEventListener("click", () => {
+    qrModal.style.display = "none"  // hide modal
 })
 
 // Reset Search (movie + actor + year search input)

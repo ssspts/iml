@@ -311,3 +311,30 @@ gap:10px;
 .search-actions button:hover{
     background-color:#0f71c0;
 }
+
+#qrModal {
+    display: flex; /* use flex to center content */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.8); /* dark overlay */
+    z-index: 9999; /* must be higher than other elements */
+    justify-content: center;
+    align-items: center;
+}
+
+#qrModal > div {
+    background: #fff;  /* modal background */
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 300px;
+    width: 90%;
+    color: #000; /* ensures text is visible */
+}
+#qrModal img {
+    border: 2px solid #1e90ff;
+    border-radius: 8px;
+}
