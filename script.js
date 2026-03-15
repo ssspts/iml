@@ -161,13 +161,22 @@ async function showMovieDetails(movieId){
     }
 
     const modalBody = document.getElementById("modalBody")
-
+    const ottLinks = {
+        "Netflix": title => `https://www.netflix.com/search?q=${encodeURIComponent(title)}`,
+        "Amazon Prime Video": title => `https://www.primevideo.com/search/ref=atv_nb_sr?phrase=${encodeURIComponent(title)}`,
+        "Disney Plus Hotstar": title => `https://www.hotstar.com/in/search?q=${encodeURIComponent(title)}`,
+        "ZEE5": title => `https://www.zee5.com/search?q=${encodeURIComponent(title)}`,
+        "Sony LIV": title => `https://www.sonyliv.com/search?q=${encodeURIComponent(title)}`
+    };
     // Construct provider logos HTML inside a flex container
     let providersHTML = "Not available"
+    const watchLink = providerData.results?.IN?.link || "#";
     if(providers.length>0){
         providersHTML = `<div class="ott-logos">` +
             providers.map(p =>
-                `<img src="https://image.tmdb.org/t/p/original${p.logo_path}" alt="${p.provider_name}" title="${p.provider_name}">`
+                `<a href="${watchLink}" target="_blank">
+<img src="https://image.tmdb.org/t/p/original${p.logo_path}" alt="${p.provider_name}" title="${p.provider_name}">
+</a>`
             ).join("") +
             `</div>`
     }
@@ -389,6 +398,19 @@ function validateAndFetchYearRange(){
     fetchMovies() // your existing function
     return true
 }
+const gridBtn = document.getElementById("gridViewBtn")
+const listBtn = document.getElementById("listViewBtn")
+const movieContainer = document.getElementById("movies")
+
+gridBtn.addEventListener("click", () => {
+    movieContainer.classList.remove("list-view")
+    movieContainer.classList.add("grid-view")
+})
+
+listBtn.addEventListener("click", () => {
+    movieContainer.classList.remove("grid-view")
+    movieContainer.classList.add("list-view")
+})
 
 // Trigger on blur
 yearFromInput.addEventListener("blur", validateAndFetchYearRange)

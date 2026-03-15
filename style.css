@@ -338,3 +338,120 @@ gap:10px;
     border: 2px solid #1e90ff;
     border-radius: 8px;
 }
+
+/* GRID VIEW */
+.grid-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+/* LIST VIEW */
+.list-view {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* MOVIE CARD */
+.movie {
+    background: rgba(255,255,255,0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 10px;
+    text-align: center;
+}
+
+/* GRID IMAGE */
+.grid-view .movie img {
+    width: 100%;
+    border-radius: 6px;
+}
+
+/* LIST LAYOUT */
+.list-view .movie {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 15px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.list-view .movie:hover {
+    transform: scale(1.02);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+}
+
+.list-view .movie img {
+    width: 80px;
+    height: 120px;
+    object-fit: cover;
+}
+
+/* MOVIE TITLE */
+.movie-title {
+    font-weight: bold;
+}
+
+/* VIEW BUTTON STYLE */
+.view-toggle button {
+    padding: 6px 12px;
+    margin-right: 6px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #1e90ff;
+    color: white;
+}
+
+/* LIST VIEW CONTAINER */
+.list-view {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 900px;   /* controls list width */
+    margin: 0 auto;     /* centers the list */
+}
+
+/* MOVIE ROW */
+.list-view .movie {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 6px;
+    max-width: 1100px;
+}
+
+/* VERY SMALL POSTER */
+.list-view .movie img {
+    width: 35px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+/* MOVIE INFO IN ONE LINE */
+.list-view .movie-info {
+    display: flex;
+    gap: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* TITLE STYLE */
+.list-view .title {
+    font-weight: bold;
+}
+.ott-logos img{
+    width:40px;
+    margin:4px;
+    cursor:pointer;
+    transition: transform 0.2s;
+}
+
+.ott-logos img:hover{
+    transform: scale(1.1);
+}

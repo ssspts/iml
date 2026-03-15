@@ -15,14 +15,12 @@
 <body>
 
 <h1 id="title">🎬 IML Movie Finder</h1>
-<div id="resultCount" style="color:limegreen; font-weight:bold; margin-bottom:15px;">
-    <!-- Number of movies will appear here -->
-</div>
+
 <div class="search-bar">
 
 <input id="search" placeholder="🎬 Movie name">
 
-<input id="actorSearch" placeholder="👤 Actor name">
+<input id="actorSearch" placeholder="👤 Actor Full name">
 
 <input id="yearSearch" placeholder="📅 Year">
     <div class="year-range-filter" style="margin-top:10px;">
@@ -73,12 +71,21 @@
 
 </div>
 
-<div class="search-actions" style="margin-top:10px;">
+<div class="search-actions" style="margin-top:5px;">
     <button id="resetSearch">Reset Search</button>
     <button id="resetFilters">Reset Filters</button>
     <button id="donateBtn" title="Support us">❤️ Support ₹1</button>
 </div>
-<div id="movies" class="container"></div>
+
+<div class="view-toggle" style="margin-top:10px;">
+    <button id="gridViewBtn">🔳 Grid View</button>
+    <button id="listViewBtn">📋 List View</button>
+</div>
+
+<div id="resultCount" style="color:limegreen; font-weight:bold; margin-bottom:15px; margin-top:15px;">
+    <!-- Number of movies will appear here -->
+</div>
+<div id="movies" class="grid-view"></div>
 
 <div class="pagination">
 
