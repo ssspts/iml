@@ -8,7 +8,6 @@
 body {
     font-family: Arial;
     color: white;
-    text-align: center;
     overflow-x: hidden;
 
     background: linear-gradient(
@@ -36,13 +35,11 @@ body::before {
 }
 
 /* Header */
-/* Header bar */
 h1 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 20px;              /* smaller text */
-    padding: 10px 16px;           /* reduce height */
-
-    text-align: left;             /* move text to left */
+    font-size: 20px;
+    padding: 10px 16px;
+    text-align: left;
 
     position: sticky;
     top: 0;
@@ -50,32 +47,48 @@ h1 {
 
     background: rgba(0,0,0,0.6);
     backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+
     text-shadow:
             0 0 8px rgba(255,255,255,0.5),
             0 0 15px rgba(120,180,255,0.5);
 }
 
-/* Feed container */
+/* Filters */
+.filters {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px;
+}
+
+.filters button {
+    flex: 0 0 auto;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.filters button.active {
+    background: #1e90ff;
+}
+
+/* Feed */
 .feed-container {
     max-width: 600px;
     margin: 0 auto;
     padding: 10px;
 }
 
-/* Feed card */
+/* Card */
 .feed-card {
     background: rgba(255,255,255,0.08);
     border-radius: 12px;
     margin-bottom: 20px;
     overflow: hidden;
-
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    transition: 0.3s;
-}
-
-.feed-card:hover {
-    transform: scale(1.01);
 }
 
 /* Image */
@@ -86,11 +99,9 @@ h1 {
 /* Content */
 .feed-content {
     padding: 15px;
-    text-align: left;
 }
 
 .feed-title {
-    font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
 }
@@ -106,33 +117,69 @@ h1 {
     margin-top: 8px;
 }
 
-.feed-card a {
-    display: inline-block;
-    margin-top: 10px;
-    color: #7fb3ff;
-    text-decoration: none;
-}
-
-.feed-card a:hover {
-    text-decoration: underline;
-}
-
 /* Loader */
 #loader {
     display: none;
-    padding: 20px;
     text-align: center;
+    padding: 20px;
 }
 
 /* Footer */
 footer {
     padding: 20px;
+    text-align: center;
     color: #aaa;
 }
 
-/* Mobile */
-@media (max-width: 600px) {
-    h1 {
-        font-size: 24px;
-    }
+/* Search */
+.search-bar {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: none;
+}
+
+.search-bar button {
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: none;
+    background: #1e90ff;
+    color: white;
+    cursor: pointer;
+}
+
+/* Filters */
+.filters {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px;
+}
+
+.filters button {
+    flex: 0 0 auto;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.filters button.active {
+    background: #1e90ff;
+}
+.search-bar select {
+    padding: 8px 10px;
+    border-radius: 20px;
+    border: none;
+    background: #222;
+    color: white;
+    cursor: pointer;
 }

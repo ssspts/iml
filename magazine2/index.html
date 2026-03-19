@@ -5,26 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IML Feeds</title>
 
-    <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>IML Feeds</h1>
+<!-- Search -->
+<div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search movies, actors, OTT...">
 
+    <select id="languageSelect" onchange="changeLanguage()">
+        <option value="">🌍 All</option>
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+        <option value="ta">Tamil</option>
+        <option value="te">Telugu</option>
+    </select>
+
+    <button onclick="searchNews()">Search</button>
+</div>
+
+<!-- Filters -->
+<div class="filters" id="filters"></div>
+
+<!-- Feed -->
 <main>
     <div id="feed" class="feed-container"></div>
 </main>
 
 <div id="loader">Loading...</div>
 
-<footer>
-    © 2026 IML Feeds
-</footer>
+<footer>© 2026 IML Feeds</footer>
 
 <script src="script.js"></script>
 </body>
